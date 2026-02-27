@@ -1,0 +1,54 @@
+{
+  "xml": {
+    "command": "lemminx",
+    "args": [],
+    "extensionToLanguage": {
+      ".xml": "xml",
+      ".uxml": "xml"
+    },
+    "transport": "stdio",
+    "initializationOptions": {
+      "settings": {
+        "xml": {
+          "catalogs": [
+            "./.claude/uxml-lsp/catalog.xml",
+            "file://${CLAUDE_PLUGIN_ROOT}/schemas/catalog.xml"
+          ],
+          "fileAssociations": [
+            {
+              "pattern": "**/*.uxml",
+              "systemId": "urn:ui-toolkit-lsps:uxml"
+            }
+          ],
+          "validation": {
+            "enabled": true
+          },
+          "format": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "settings": {
+      "xml": {
+        "catalogs": [
+          "./.claude/uxml-lsp/catalog.xml",
+          "file://${CLAUDE_PLUGIN_ROOT}/schemas/catalog.xml"
+        ],
+        "fileAssociations": [
+          {
+            "pattern": "**/*.uxml",
+            "systemId": "urn:ui-toolkit-lsps:uxml"
+          }
+        ],
+        "validation": {
+          "enabled": true
+        },
+        "format": {
+          "enabled": true
+        }
+      }
+    },
+    "maxRestarts": 3
+  }
+}

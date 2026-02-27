@@ -2,13 +2,16 @@
 
 Claude Code 向けの Unity UI Toolkit LSP プラグイン集です。
 
-現在このリポジトリで利用できる USS 用プラグイン:
+現在このリポジトリで利用できるプラグイン:
 
 - `uss-lsp`: `unity_code_native` を使って `.uss` を LSP 接続
+- `uxml-lsp`: `LemMinX` を使って `.uxml` を LSP 接続（同梱XSDで補完/検証）
 
 ## セットアップ
 
-### 1. `unity_code_native` を用意する
+### 1. LSP 実行ファイルを用意する
+
+#### `uss-lsp` 用: `unity_code_native`
 
 `unity_code_native` は USS Language Server を内蔵しており、LSP は stdio（stdin/stdout）で通信します。  
 起動時に **Unity プロジェクトのパスを第1引数** で渡す必要があります。
@@ -27,6 +30,13 @@ cargo build --release
 生成した実行ファイルを `PATH` の通る場所に置いてください。  
 `PATH` に置かない場合は、`plugins/uss-lsp/.lsp.json` の `command` を絶対パスに変更してください。
 
+#### `uxml-lsp` 用: `lemminx`
+
+`uxml-lsp` は XML Language Server の `LemMinX` を利用します。  
+`lemminx` コマンドが `PATH` で実行できる状態にしてください。
+
+`lemminx` の代わりに `java -jar /path/to/org.eclipse.lemminx-uber.jar` で運用したい場合は、`plugins/uxml-lsp/.lsp.json` の `command` / `args` を調整してください。
+
 ### 2. 単体起動テスト（重要）
 
 Unity プロジェクト直下で:
@@ -43,6 +53,12 @@ unity_code_native /path/to/YourUnityProject
 
 `usage` が出ずに起動できれば、引数付き起動は正常です。
 
+`LemMinX` 側は次で起動確認できます:
+
+```bash
+lemminx
+```
+
 ### 3. Claude Code にマーケットプレースを登録
 
 このリポジトリをマーケットプレースとして追加:
@@ -57,13 +73,21 @@ claude plugin marketplace add /path/to/ui-toolkit-lsps
 claude plugin install uss-lsp@ui-toolkit-lsps --scope project
 ```
 
+`uxml-lsp` をインストール:
+
+```bash
+claude plugin install uxml-lsp@ui-toolkit-lsps --scope project
+```
+
 確認:
 
 ```bash
 claude plugin list
 ```
 
-## 実装内容（USS）
+## 実装内容
+
+### USS (`plugins/uss-lsp/.lsp.json`)
 
 `plugins/uss-lsp/.lsp.json` は以下のように設定してあります。
 
@@ -80,3 +104,65 @@ claude plugin list
 ```
 
 Claude Code を Unity プロジェクトのルートで開くことで、`args: ["."]` が Unity プロジェクトパスとして渡される想定です。
+
+### UXML (`plugins/uxml-lsp/.lsp.json`)
+
+`plugins/uxml-lsp/.lsp.json` は `lemminx` を起動し、`.uxml` を XML として関連付けています。  
+さらに `xml.fileAssociations` で `**/*.uxml` を `urn:ui-toolkit-lsps:uxml` に関連付け、  
+XML Catalog で実体スキーマを解決します。
+
+```json
+{
+  "xml": {
+    "command": "lemminx",
+    "extensionToLanguage": {
+      ".uxml": "xml"
+    },
+    "initializationOptions": {
+      "settings": {
+        "xml": {
+          "catalogs": [
+            "./.claude/uxml-lsp/catalog.xml",
+            "file://${CLAUDE_PLUGIN_ROOT}/schemas/catalog.xml"
+          ],
+          "fileAssociations": [
+            {
+              "pattern": "**/*.uxml",
+              "systemId": "urn:ui-toolkit-lsps:uxml"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+### 同梱スキーマ
+
+`plugins/uxml-lsp/schemas/` に以下を同梱しています:
+
+- `catalog.xml`: `urn:ui-toolkit-lsps:uxml` -> `UIElements.xsd`
+- `UIElements.xsd`: 互換用エントリポイント（旧 noNamespaceSchemaLocation を考慮）
+- `UnityEngine.UIElements.xsd`: Runtime UI 要素定義
+- `UnityEditor.UIElements.xsd`: Editor UI 要素定義
+
+必要に応じて XSD を拡張すると、LemMinX の補完とバリデーションに反映されます。
+
+### 利用者によるスキーマ差し替え
+
+`uxml-lsp` は、プロジェクト側のカタログを優先して読みます。  
+以下を作成すると、同梱スキーマを差し替えできます。
+
+1. `.claude/uxml-lsp/` を作成
+2. 任意名でカスタムXSDを配置（例: `.claude/uxml-lsp/MyUIElements.xsd`）
+3. `.claude/uxml-lsp/catalog.xml` を作成
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <uri name="urn:ui-toolkit-lsps:uxml" uri="MyUIElements.xsd"/>
+</catalog>
+```
+
+`catalog.xml` を置いた後、Claude Code を再起動すると新しいスキーマが適用されます。

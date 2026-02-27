@@ -21,7 +21,7 @@
     {
       "name": "uxml-lsp",
       "source": "./plugins/uxml-lsp",
-      "description": "uxml-lsp"
+      "description": "UXML language server via LemMinX with bundled schema"
     }
   ]
 }

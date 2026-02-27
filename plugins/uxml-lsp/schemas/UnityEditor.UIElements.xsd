@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="UnityEditor.UIElements"
+    xmlns:uie="UnityEditor.UIElements"
+    xmlns:ui="UnityEngine.UIElements"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified">
+
+  <xs:import namespace="UnityEngine.UIElements" schemaLocation="UnityEngine.UIElements.xsd"/>
+
+  <xs:complexType name="EditorElementType">
+    <xs:complexContent>
+      <xs:extension base="ui:VisualElementType">
+        <xs:anyAttribute processContents="lax"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:element name="InspectorElement" type="uie:EditorElementType"/>
+  <xs:element name="PropertyField" type="uie:EditorElementType"/>
+  <xs:element name="LayerMaskField" type="uie:EditorElementType"/>
+  <xs:element name="MaskField" type="uie:EditorElementType"/>
+  <xs:element name="TagField" type="uie:EditorElementType"/>
+  <xs:element name="GradientField" type="uie:EditorElementType"/>
+  <xs:element name="BoundsField" type="uie:EditorElementType"/>
+  <xs:element name="BoundsIntField" type="uie:EditorElementType"/>
+  <xs:element name="RectField" type="uie:EditorElementType"/>
+  <xs:element name="RectIntField" type="uie:EditorElementType"/>
+  <xs:element name="EnumFlagsField" type="uie:EditorElementType"/>
+
+</xs:schema>

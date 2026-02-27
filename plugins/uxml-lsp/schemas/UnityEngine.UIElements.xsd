@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="UnityEngine.UIElements"
+    xmlns:ui="UnityEngine.UIElements"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified">
+
+  <xs:complexType name="VisualElementType">
+    <xs:sequence>
+      <xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string"/>
+    <xs:attribute name="class" type="xs:string"/>
+    <xs:attribute name="style" type="xs:string"/>
+    <xs:attribute name="tooltip" type="xs:string"/>
+    <xs:attribute name="view-data-key" type="xs:string"/>
+    <xs:attribute name="binding-path" type="xs:string"/>
+    <xs:attribute name="focusable" type="xs:boolean"/>
+    <xs:attribute name="tabindex" type="xs:int"/>
+    <xs:attribute name="picking-mode" type="xs:string"/>
+    <xs:anyAttribute processContents="lax"/>
+  </xs:complexType>
+
+  <xs:complexType name="TextualElementType">
+    <xs:complexContent>
+      <xs:extension base="ui:VisualElementType">
+        <xs:attribute name="text" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ValueElementType">
+    <xs:complexContent>
+      <xs:extension base="ui:VisualElementType">
+        <xs:attribute name="value" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UXMLType">
+    <xs:complexContent>
+      <xs:extension base="ui:VisualElementType">
+        <xs:attribute name="editor-extension-mode" type="xs:boolean"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="TemplateType">
+    <xs:complexContent>
+      <xs:extension base="ui:VisualElementType">
+        <xs:attribute name="src" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="InstanceType">
+    <xs:complexContent>
+      <xs:extension base="ui:VisualElementType">
+        <xs:attribute name="template" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="StyleType">
+    <xs:complexContent>
+      <xs:extension base="ui:VisualElementType">
+        <xs:attribute name="src" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:element name="UXML" type="ui:UXMLType"/>
+  <xs:element name="VisualElement" type="ui:VisualElementType"/>
+  <xs:element name="TemplateContainer" type="ui:VisualElementType"/>
+  <xs:element name="Template" type="ui:TemplateType"/>
+  <xs:element name="Instance" type="ui:InstanceType"/>
+  <xs:element name="Style" type="ui:StyleType"/>
+
+  <xs:element name="Label" type="ui:TextualElementType"/>
+  <xs:element name="Button" type="ui:TextualElementType"/>
+  <xs:element name="Toggle" type="ui:TextualElementType"/>
+  <xs:element name="Foldout" type="ui:TextualElementType"/>
+  <xs:element name="HelpBox" type="ui:TextualElementType"/>
+
+  <xs:element name="TextField" type="ui:ValueElementType"/>
+  <xs:element name="IntegerField" type="ui:ValueElementType"/>
+  <xs:element name="LongField" type="ui:ValueElementType"/>
+  <xs:element name="FloatField" type="ui:ValueElementType"/>
+  <xs:element name="DoubleField" type="ui:ValueElementType"/>
+  <xs:element name="Vector2Field" type="ui:ValueElementType"/>
+  <xs:element name="Vector2IntField" type="ui:ValueElementType"/>
+  <xs:element name="Vector3Field" type="ui:ValueElementType"/>
+  <xs:element name="Vector3IntField" type="ui:ValueElementType"/>
+  <xs:element name="Vector4Field" type="ui:ValueElementType"/>
+  <xs:element name="ColorField" type="ui:ValueElementType"/>
+  <xs:element name="CurveField" type="ui:ValueElementType"/>
+  <xs:element name="ObjectField" type="ui:ValueElementType"/>
+  <xs:element name="EnumField" type="ui:ValueElementType"/>
+  <xs:element name="DropdownField" type="ui:ValueElementType"/>
+  <xs:element name="PopupField" type="ui:ValueElementType"/>
+
+  <xs:element name="Slider" type="ui:VisualElementType"/>
+  <xs:element name="SliderInt" type="ui:VisualElementType"/>
+  <xs:element name="MinMaxSlider" type="ui:VisualElementType"/>
+  <xs:element name="ProgressBar" type="ui:VisualElementType"/>
+
+  <xs:element name="ScrollView" type="ui:VisualElementType"/>
+  <xs:element name="ListView" type="ui:VisualElementType"/>
+  <xs:element name="MultiColumnListView" type="ui:VisualElementType"/>
+  <xs:element name="TreeView" type="ui:VisualElementType"/>
+  <xs:element name="MultiColumnTreeView" type="ui:VisualElementType"/>
+
+  <xs:element name="Toolbar" type="ui:VisualElementType"/>
+  <xs:element name="ToolbarButton" type="ui:TextualElementType"/>
+  <xs:element name="ToolbarToggle" type="ui:TextualElementType"/>
+  <xs:element name="ToolbarMenu" type="ui:TextualElementType"/>
+  <xs:element name="ToolbarSearchField" type="ui:ValueElementType"/>
+
+  <xs:element name="RadioButton" type="ui:TextualElementType"/>
+  <xs:element name="RadioButtonGroup" type="ui:ValueElementType"/>
+
+  <xs:element name="Box" type="ui:VisualElementType"/>
+  <xs:element name="GroupBox" type="ui:VisualElementType"/>
+  <xs:element name="Image" type="ui:VisualElementType"/>
+  <xs:element name="IMGUIContainer" type="ui:VisualElementType"/>
+  <xs:element name="TwoPaneSplitView" type="ui:VisualElementType"/>
+
+</xs:schema>

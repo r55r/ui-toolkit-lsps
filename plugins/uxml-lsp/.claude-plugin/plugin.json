@@ -1,0 +1,10 @@
+{
+  "name": "uxml-lsp",
+  "description": "Unity UXML language server via LemMinX",
+  "version": "0.1.0",
+  "author": {
+    "name": "r55r",
+    "email": "riyoutasan@gmail.com"
+  },
+  "lspServers": "./.lsp.json"
+}

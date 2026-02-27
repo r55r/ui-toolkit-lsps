@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:ui="UnityEngine.UIElements"
+    xmlns:uie="UnityEditor.UIElements"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified">
+
+  <xs:import namespace="UnityEngine.UIElements" schemaLocation="UnityEngine.UIElements.xsd"/>
+  <xs:import namespace="UnityEditor.UIElements" schemaLocation="UnityEditor.UIElements.xsd"/>
+
+  <!-- Legacy no-namespace fallback for older UXML files using noNamespaceSchemaLocation -->
+  <xs:element name="UXML" type="ui:UXMLType"/>
+
+</xs:schema>
