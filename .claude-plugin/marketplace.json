@@ -1,0 +1,27 @@
+{
+  "name": "ui-toolkit-lsps",
+  "owner": {
+    "name": "r55r",
+    "email": "riyoutasan@gmail.com"
+  },
+  "metadata": {
+    "description": "Unity UI Toolkit 向けの Claude Code プラグインマーケットプレース。USS/UXML の LSP サポートを提供します。"
+  },
+  "plugins": [
+    {
+      "name": "ui-toolkit-lsps",
+      "source": "./",
+      "description": "Unity UI Toolkit LSP plugins"
+    },
+    {
+      "name": "uss-lsp",
+      "source": "./plugins/uss-lsp",
+      "description": "USS language server via unity_code_native"
+    },
+    {
+      "name": "uxml-lsp",
+      "source": "./plugins/uxml-lsp",
+      "description": "uxml-lsp"
+    }
+  ]
+}

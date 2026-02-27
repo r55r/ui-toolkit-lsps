@@ -1,0 +1,9 @@
+{
+  "uss": {
+    "command": "unity_code_native",
+    "args": ["."],
+    "extensionToLanguage": {
+      ".uss": "uss"
+    }
+  }
+}
