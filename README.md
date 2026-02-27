@@ -143,16 +143,21 @@ XML Catalog で実体スキーマを解決します。
 `plugins/uxml-lsp/schemas/` に以下を同梱しています:
 
 - `catalog.xml`: `urn:ui-toolkit-lsps:uxml` -> `UIElements.xsd`
-- `UIElements.xsd`: 互換用エントリポイント（旧 noNamespaceSchemaLocation を考慮）
-- `UnityEngine.UIElements.xsd`: Runtime UI 要素定義
-- `UnityEditor.UIElements.xsd`: Editor UI 要素定義
+- `UIElements.xsd`: エントリポイント（他の XSD を import）
+- `UnityEngine.UIElements.xsd`, `UnityEditor.UIElements.xsd` ほか関連 XSD 一式
+- `UNITY_SCHEMA_SOURCE.md`: 生成元 Unity バージョン情報
 
-必要に応じて XSD を拡張すると、LemMinX の補完とバリデーションに反映されます。
+これらの XSD は **Unity Editor 6000.2.10f1** で `UnityEditor.UIElements.UxmlSchemaGenerator.UpdateSchemaFiles()` を実行して生成した公式スキーマです（手書きではありません）。
+再生成は `scripts/sync-unity-uxml-schema.sh` で行えます。
+
+```bash
+./scripts/sync-unity-uxml-schema.sh /Applications/Unity/Hub/Editor/6000.2.10f1/Unity.app 6000.2.10f1
+```
 
 ### 利用者によるスキーマ差し替え
 
 `uxml-lsp` は、プロジェクト側のカタログを優先して読みます。  
-以下を作成すると、同梱スキーマを差し替えできます。
+以下を作成すると、同梱スキーマを差し替えできます（Unity バージョンごとの運用を推奨）。
 
 1. `.claude/uxml-lsp/` を作成
 2. 任意名でカスタムXSDを配置（例: `.claude/uxml-lsp/MyUIElements.xsd`）
