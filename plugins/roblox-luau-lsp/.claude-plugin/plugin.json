@@ -1,0 +1,6 @@
+{
+  "name": "roblox-luau-lsp",
+  "description": "Luau (Roblox) language server via luau-lsp",
+  "version": "0.1.0",
+  "lspServers": "./.lsp.json"
+}

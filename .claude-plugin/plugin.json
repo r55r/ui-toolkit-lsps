@@ -1,0 +1,23 @@
+{
+  "name": "roblox-tools",
+  "version": "1.0.0",
+  "description": "Claude Code plugin for Roblox/Luau development - includes agents for architecture, documentation, and commands for UI creation and bug fixing",
+  "author": {
+    "name": "rt",
+    "email": "riyoutasan@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "roblox",
+    "luau",
+    "roblox-studio",
+    "game-development",
+    "claude-code"
+  ],
+  "skills": ["./commands/"],
+  "agents": [
+    "./agents/architect.md",
+    "./agents/docs-writer.md",
+    "./agents/fetch-docs.md"
+  ]
+}

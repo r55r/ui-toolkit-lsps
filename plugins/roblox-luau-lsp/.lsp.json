@@ -1,0 +1,10 @@
+{
+  "luau": {
+    "command": "luau-lsp",
+    "args": ["lsp", "--definitions=roblox/globalTypes.d.luau"],
+    "extensionToLanguage": {
+      ".luau": "luau",
+      ".lua": "luau"
+    }
+  }
+}
